@@ -1,5 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { createServer } from 'http';
+import { JokeController } from './controllers/jokeController';
+import 'dotenv/config'
 
 
 const app = express();
@@ -10,6 +12,8 @@ app.use(function (req, res, next) {
     next();
 });
 
+const jokeController = new JokeController()
+
 const server = createServer(app);
 const port = 8080;
 
@@ -17,13 +21,18 @@ app.use(express.json())
 
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`)
+    console.log(process.env.MONGO_URL)
 });
 
-app.post("/test", async (req: Request, res: Response) => {
-    await controller.testConnections(req, res)
-})
+app.get("/joke", (req: Request, res: Response) => {
+    jokeController.getJoke(req, res);
+});
 
 app.get("/jokes", (req: Request, res: Response) => {
-    console.log("Its running!")
-    res.status(200).send({message: 'Server is running'});
+    jokeController.getAllJokes(req, res);
+});
+
+app.post("/joke", (req: Request, res: Response) => {
+    console.log(process.env.MONGO_URL);
+    jokeController.saveJoke(req, res);
 });
