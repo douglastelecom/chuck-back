@@ -21,6 +21,7 @@ export class MongodbService {
     }
 
     async saveJson(joke_description: string) {
+        console.log(joke_description)
         const client = new MongoClient(process.env.MONGO_URL!)
         console.log(process.env.MONGO_URL)
         const collection = client.db('chuck_db').collection('chuck_collection')

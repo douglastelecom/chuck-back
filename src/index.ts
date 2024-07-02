@@ -34,5 +34,6 @@ app.get("/jokes", (req: Request, res: Response) => {
 
 app.post("/joke", (req: Request, res: Response) => {
     console.log(process.env.MONGO_URL)
+    console.log
     jokeController.saveJoke(req, res);
 });
