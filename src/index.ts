@@ -28,6 +28,10 @@ app.get("/joke", (req: Request, res: Response) => {
     jokeController.getJoke(req, res);
 });
 
+app.get("/jokes", (req: Request, res: Response) => {
+    jokeController.getAllJokes(req, res);
+});
+
 app.post("/joke", (req: Request, res: Response) => {
     console.log(process.env.MONGO_URL)
     jokeController.saveJoke(req, res);

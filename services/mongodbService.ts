@@ -36,8 +36,18 @@ export class MongodbService {
         console.log(process.env.MONGO_URL)
         const collection = client.db('chuck_db').collection('chuck_collection')
         const size = await collection.countDocuments();
+        console.log(size)
         const joke = await collection.findOne({numero: this.getRandomInt(0, size)})
+        console.log(joke)
         return joke
+    }
+
+    async getAllJokes() {
+        const client = new MongoClient(process.env.MONGO_URL!)
+        const collection = client.db('chuck_db').collection('chuck_collection')
+        const jokes = await collection.find({}).toArray()
+        console.log(jokes)
+        return jokes
     }
 
     getRandomInt(min: number, max: number) {
